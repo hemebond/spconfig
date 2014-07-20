@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<title>SP Config Generator</title>
+
+		<style>
+			#xml {
+				margin-top:1em;
+				resize: none;
+				overflow-x: auto !important;
+			}
+			.help-block {
+				margin-bottom: 0;
+			}
+			.form-group {
+				margin-bottom: 0;
+			}
+		</style>
+	</head>
+	<body ng-app="SPConfig">
+		<div ng-controller="ConfigController as ctrl" class="container-fluid">
+			<div class="row">
+				<div class="col-lg-6">
+					<form class="form-horizontal" role="form">
+						<h2>Configuration</h2>
+
+						<div class="form-group">
+							<label for="inputApplicationName" class="col-sm-4 control-label">Application Name</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control" id="inputApplicationName" placeholder="" ng-model="applicationName">
+							</div>
+						</div>
+
+						<fieldset>
+							<legend>Attribute Maps</legend>
+
+							<div class="form-group" ng-repeat="attributeMap in attributeMaps">
+								<label class="col-sm-4 control-label">{{ attributeMap.name }}</label>
+								<div class="col-sm-8">
+									<div class="checkbox">
+										<label>
+											<input type="checkbox" ng-model="attributeMap.enabled"> Enabled
+										</label>
+									</div>
+									<p ng-if="attributeMap.help" class="help-block">{{ attributeMap.help }}</p>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<div class="col-sm-offset-4 col-sm-8">
+									<table class="table table-condensed">
+										<thead>
+											<tr>
+												<th>Entitlement</th>
+												<th>Role</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr ng-repeat="role in securityRoles">
+												<td><input type="text" class="form-control" ng-model="role.entitlement"></td>
+												<td><input type="text" class="form-control" ng-model="role.name"></td>
+											</tr>
+										</tbody>
+									</table>
+
+									<button ng-click="addEntitlementFormFields()" type="button" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-plus-sign"></i></button>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<div class="col-sm-offset-4 col-sm-8">
+
+								</div>
+							</div>
+						</fieldset>
+					</form>
+				</div>
+
+				<div class="col-lg-6">
+					<h2>XML</h2>
+
+					<form class="form-inline" role="form">
+						<button ng-click="updateXML()" type="button" class="btn btn-primary">Generate XML</button>
+
+						<div class="checkbox">
+							<label>
+								<input type="checkbox" ng-change="updateXML()" ng-model="beautify"> Beautify
+							</label>
+						</div>
+					</form>
+
+					<textarea id="xml" msd-elastic ng-model="xml" class="col-sm-12" spellcheck="false" wrap="off"></textarea>
+				</div>
+			</div>
+		</div>
+
+		<script src="js/jquery.min.js"></script>
+		<script src="js/angular.min.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script src="js/vkbeautify.js"></script>
+		<script src="js/elastic.js"></script>
+		<script src="app/app.js"></script>
+	</body>
+</html>
