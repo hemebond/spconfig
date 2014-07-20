@@ -32,19 +32,19 @@
 				{
 					name: 'ESAA2_UUID',
 					rule: '$!{currentUser.uniqueId}',
-					help: 'The login ID or username.'
+					help: 'Universally unique identifier (CDI or PDI?).'
 				},
 				{
 					name: 'ESAA2_CONTACTEMAIL',
 					cdata: true,
 					rule: '## Use CDI then PDI Email\n#set ($email = $!{currentLoginContext.getAttributeValue("email")})\n#if ("$email" == "" || ! $email)\n\t#set ($email = $!{currentUser.getAttributeValue("email")})\n#end\n$!{email}',
-					help: 'Email address for the CDI or the PDI.'
+					help: 'Release user’s Contextual email address (CDI) if present otherwise his personal email address (PDI).'
 				},
 				{
 					name: 'ESAA2_PREFERREDNAME',
 					cdata: true,
 					rule: '## Use CDI then PDI PreferredName\n#set ($preferredName = $!{currentLoginContext.getAttributeValue("preferredName")})\n#if ("$preferredName" == "" || ! $preferredName)\n\t#set ($preferredName = $!{currentUser.getAttributeValue("preferredName")})\n#end\n$!{preferredName}',
-					help: 'Preferred name for the CDI or PDI.'
+					help: 'Release user’s Contextual preferred name (CDI) if present otherwise his personal (PDI) one.'
 				},
 				{
 					name: 'ESAA2_LOGGEDINCONTEXTNAME',
@@ -59,13 +59,13 @@
 				{
 					name: 'ESAA2_TITLE',
 					rule: '$!{currentUser.getAttributeValue("title")}',
-					help: 'Mr, Ms, etc.'
+					help: 'User’s PDI attribute value.'
 				},
 				{
 					name: 'ESAA2_SECURITYROLES',
 					cdata: true,
 					rule: createSecurityRolesRule,
-					help: 'A list of entitlements to check for.'
+					help: 'User’s entitlements as a comma separated String.'
 				}
 			];
 
