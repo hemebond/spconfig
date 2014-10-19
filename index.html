@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="css/bootstrap.min.css">
 		<title>SP Config Generator</title>
 
 		<style>
@@ -12,6 +12,7 @@
 				margin-top:1em;
 				resize: none;
 				overflow-x: auto !important;
+				font-family: monospace;
 			}
 			.form-group {
 				margin-bottom: 0;
@@ -36,7 +37,7 @@
 							<legend>Attribute Maps</legend>
 
 							<div class="form-group" ng-repeat="attributeMap in attributeMaps">
-								<label class="col-sm-4 control-label">{{ attributeMap.name }}</label>
+								<label class="col-sm-4 control-label">{{ attributeMap.tname }}</label>
 								<div class="col-sm-8">
 									<div class="checkbox">
 										<label>
@@ -48,18 +49,28 @@
 							</div>
 
 							<div class="form-group">
+								<label class="col-sm-4 control-label">{{ securityRolesAttributeMap.tname }}</label>
+								<div class="col-sm-8">
+									<div class="checkbox">
+										<label>
+											<input type="checkbox" ng-model="securityRolesAttributeMap.enabled"> Enabled
+										</label>
+									</div>
+									<p ng-if="securityRolesAttributeMap.help" class="help-block">{{ securityRolesAttributeMap.help }}</p>
+								</div>
+							</div>
+
+							<div class="form-group">
 								<div class="col-sm-offset-4 col-sm-8">
 									<table class="table table-condensed">
 										<thead>
 											<tr>
 												<th>Entitlement</th>
-												<th>Role</th>
 											</tr>
 										</thead>
 										<tbody>
-											<tr ng-repeat="role in securityRoles">
-												<td><input type="text" class="form-control" ng-model="role.entitlement"></td>
-												<td><input type="text" class="form-control" ng-model="role.name"></td>
+											<tr ng-repeat="e in entitlements track by $index">
+												<td><input type="text" class="form-control" ng-model="entitlements[$index]"></td>
 											</tr>
 										</tbody>
 									</table>
@@ -84,7 +95,7 @@
 						</div>
 					</form>
 
-					<textarea id="xml" msd-elastic ng-model="xml" class="col-sm-12" spellcheck="false" wrap="off"></textarea>
+					<textarea id="xml" msd-elastic ng-model="xml" class="col-sm-12" spellcheck="false" wrap="off" readonly="readonly"></textarea>
 				</div>
 			</div>
 		</div>
