@@ -38,6 +38,11 @@
 					help: 'Universally unique identifier (CDI or PDI?).'
 				},
 				{
+					tname: 'ESAA2_MIDDLENAME',
+					cdata: '## Use CDI then PDI Middlenames\n#set ($middleNames = $!{currentLoginContext.getAttributeValue("middleNames")})\n#if ("$middleNames" == "" || ! $middleNames)\n#set ($middleNames = $!{currentUser.getAttributeValue("middleNames")})\n#end\n$!{middleNames}',
+					help: 'Middle name from PDI or CDI'
+				},
+				{
 					tname: 'ESAA2_CONTACTEMAIL',
 					cdata: '## Use CDI then PDI Email\n#set ($email = $!{currentLoginContext.getAttributeValue("email")})\n#if ("$email" == "" || ! $email)\n\t#set ($email = $!{currentUser.getAttributeValue("email")})\n#end\n$!{email}',
 					help: 'Release user’s Contextual email address (CDI) if present otherwise his personal email address (PDI).'
